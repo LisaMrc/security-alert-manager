@@ -1,3 +1,11 @@
+import DogCard from './components/Navbar';
+import './App.css'
+import Navbar from './components/Navbar';
+
 export default function App() {
-  return <main>Hello World</main>
+  return (
+    <div>
+        <Navbar />
+    </div>
+  )
 }
