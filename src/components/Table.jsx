@@ -1,45 +1,6 @@
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
-const alerts = [
-  {
-    id: "8782",
-    ip: "8.8.8.8",
-    timestamp: "2026-01-12T11:00:00Z",
-    severity: "high",
-    threat_type: "Brute-Force SSH",
-    status: "in_progress",
-    is_read: false,
-  },
-  {
-    id: "7878",
-    ip: "8.8.8.8",
-    timestamp: "2026-01-12T11:00:00Z",
-    severity: "low",
-    threat_type: "Security Breach",
-    status: "backlog",
-    is_read: false,
-  },
-  {
-    id: "7839",
-    ip: "8.8.8.8",
-    timestamp: "2026-01-12T11:00:00Z",
-    severity: "medium",
-    threat_type: "Other",
-    status: "todo",
-    is_read: true,
-  },
-  {
-    id: "5562",
-    ip: "8.8.8.8",
-    timestamp: "2026-01-12T11:00:00Z",
-    severity: "critical",
-    threat_type: "Other",
-    status: "backlog",
-    is_read: false,
-  },
-];
-
 const severityStyles = {
   low: "bg-slate-100 text-slate-700",
   medium: "bg-amber-100 text-amber-700",
@@ -47,10 +8,10 @@ const severityStyles = {
   critical: "bg-red-100 text-red-700",
 };
 
-const statusLabels = {
-  todo: "Todo",
-  in_progress: "In Progress",
-  backlog: "Backlog",
+const statusStyles = {
+  active: "bg-blue-100 text-blue-700",
+  banned: "bg-red-100 text-red-700",
+  ignored: "bg-slate-100 text-slate-500",
 };
 
 function formatDate(isoString) {
@@ -63,7 +24,7 @@ function formatDate(isoString) {
   });
 }
 
-export function AlertsTable() {
+export function AlertsTable({ alerts, onUpdateStatus }) {
   return (
     <Table>
       <TableHeader>
@@ -79,12 +40,14 @@ export function AlertsTable() {
       <TableBody>
         {alerts.map((alert) => (
           <TableRow key={alert.id}>
-            <TableCell className="font-medium">{alert.id}</TableCell>
+            <TableCell className="font-medium">{alert.id.slice(0, 8)}</TableCell>
             <TableCell>
               <Badge className={severityStyles[alert.severity]}>{alert.severity}</Badge>
             </TableCell>
             <TableCell>{alert.threat_type}</TableCell>
-            <TableCell>{statusLabels[alert.status]}</TableCell>
+            <TableCell>
+              <Badge className={statusStyles[alert.status]}>{alert.status}</Badge>
+            </TableCell>
             <TableCell>{formatDate(alert.timestamp)}</TableCell>
             <TableCell className="font-mono">{alert.ip}</TableCell>
           </TableRow>
@@ -93,7 +56,7 @@ export function AlertsTable() {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={5}>Total</TableCell>
-          <TableCell className="text-right">{alerts.length} alertes</TableCell>
+          <TableCell className="text-right">{alerts.length} alerts</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
