@@ -10,6 +10,7 @@ function randomFrom(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
+// alerts take the same shape as the 
 function generateMockAlert() {
   return {
     id: crypto.randomUUID(),
@@ -26,7 +27,8 @@ function generateMockAlert() {
 function alertsReducer(state, action) {
   switch (action.type) {
     case "ADD_ALERT":
-      return [action.payload, ...state].slice(0, MAX_ALERTS)
+        // add new alerts at the bottom, keep the 100th lasts
+      return [...state, action.payload].slice(-MAX_ALERTS)
     case "UPDATE_STATUS":
       return state.map((a) =>
         a.id === action.payload.id ? { ...a, status: action.payload.status } : a
