@@ -6,10 +6,7 @@ import {
 import { buttonVariants } from '@/components/ui/button'
 import { SEVERITIES } from '@/hooks/useAlertStream'
 
-export function AlertsFilters({ 
-    selectedSeverity, 
-    onSeverityChange,
-}) {
+export function AlertsFilters({ selectedSeverity, onSeverityChange }) {
   return (
     <Popover>
       <PopoverTrigger className={buttonVariants({ variant: 'outline' })}>
@@ -18,6 +15,9 @@ export function AlertsFilters({
       </PopoverTrigger>
 
       <PopoverContent>
+        <button type="button" onClick={() => onSeverityChange(null)}>
+          All severities
+        </button>
         {SEVERITIES.map((severity) => (
           <button
             key={severity}
