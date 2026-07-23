@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { useState, slice } from "react";
+import { useState } from "react";
 
 const severityStyles = {
   low: "bg-slate-100 text-slate-700",
@@ -49,13 +49,26 @@ export function AlertsTable({ alerts, onRowClick }) {
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">ID</TableHead>
+
           <TableHead onClick={() => handleSort("severity")} className="cursor-pointer">
             Severity {sortConfig.key === "severity" && (sortConfig.direction === "asc" ? "↑" : "↓")}
           </TableHead>
-          <TableHead>Threat type</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Date</TableHead>
-          <TableHead>IP</TableHead>
+
+          <TableHead onClick={() => handleSort("threat_type")} className="cursor-pointer">
+            Threat type {sortConfig.key === "threat_type" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+          </TableHead>
+
+          <TableHead onClick={() => handleSort("status")} className="cursor-pointer">
+            Status {sortConfig.key === "status" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+          </TableHead>
+
+          <TableHead onClick={() => handleSort("timestamp")} className="cursor-pointer">
+            Date {sortConfig.key === "timestamp" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+          </TableHead>
+
+          <TableHead onClick={() => handleSort("ip")} className="cursor-pointer">
+            IP {sortConfig.key === "ip" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

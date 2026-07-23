@@ -10,7 +10,7 @@ function randomFrom(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-// alerts take the same shape as the 
+// alerts take the same shape as the brief
 function generateMockAlert() {
   return {
     id: crypto.randomUUID(),
