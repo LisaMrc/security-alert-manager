@@ -7,6 +7,7 @@ import { Navbar } from './components/Navbar'
 import { AlertsFilters } from './components/AlertsFilters'
 
 import { SEVERITIES, THREAT_TYPES, IPS } from '@/hooks/useAlertStream'
+import {STATUSES} from '@/components/AlertsTable'
 
 export default function App() {
   const { alerts, updateAlertStatus } = useAlertStream()
@@ -66,13 +67,14 @@ export default function App() {
         onChange={handleFilterChange}
       />
 
-      {/* <AlertsFilters
+      <AlertsFilters
         label="Status"
+        allLabel="All statuses"
         filterKey="status"
         value={filters.status}
         options={STATUSES}
         onChange={handleFilterChange}
-      /> */}
+      />
 
       <AlertsTable
         alerts={alerts}

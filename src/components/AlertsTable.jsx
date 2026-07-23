@@ -23,6 +23,9 @@ const statusStyles = {
   ignored: 'bg-slate-100 text-slate-500',
 }
 
+// Derive status values from this table instead of creating one - one SOT
+export const STATUSES = Object.keys(statusStyles)
+
 function formatDate(isoString) {
   return new Date(isoString).toLocaleString('en-US', {
     month: 'short',
