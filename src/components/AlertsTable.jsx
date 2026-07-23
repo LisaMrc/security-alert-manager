@@ -1,58 +1,84 @@
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { Badge } from '@/components/ui/badge'
+import { useState, useMemo } from 'react'
 
 const severityStyles = {
-  low: "bg-slate-100 text-slate-700",
-  medium: "bg-amber-100 text-amber-700",
-  high: "bg-orange-100 text-orange-700",
-  critical: "bg-red-100 text-red-700",
-};
-
-const statusStyles = {
-  active: "bg-blue-100 text-blue-700",
-  banned: "bg-red-100 text-red-700",
-  ignored: "bg-slate-100 text-slate-500",
-};
-
-function formatDate(isoString) {
-  return new Date(isoString).toLocaleString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
+  low: 'bg-slate-100 text-slate-700',
+  medium: 'bg-amber-100 text-amber-700',
+  high: 'bg-orange-100 text-orange-700',
+  critical: 'bg-red-100 text-red-700',
 }
 
-export function AlertsTable({ alerts, onRowClick }) {
+const statusStyles = {
+  active: 'bg-blue-100 text-blue-700',
+  banned: 'bg-red-100 text-red-700',
+  ignored: 'bg-slate-100 text-slate-500',
+}
+
+function formatDate(isoString) {
+  return new Date(isoString).toLocaleString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  })
+}
+
+export function AlertsTable({ alerts, onRowClick, selectedSeverity }) {
+  //   Filtering
+  const filteredAlerts = useMemo(() => {
+    console.log('selectedSeverity:', selectedSeverity)
+    console.log(
+      'available severities:',
+      alerts.map((a) => a.severity),
+    )
+
+    return selectedSeverity === null
+      ? alerts
+      : alerts.filter((alert) => alert.severity === selectedSeverity)
+  }, [alerts, selectedSeverity])
+
   // Sorting - didn't use TanStackTable to prevent over-engineering
-  const [sortConfig, setSortConfig] = useState({ key: "timestamp", direction: "desc" });
+  const [sortConfig, setSortConfig] = useState({
+    key: 'timestamp',
+    direction: 'desc',
+  })
 
   function handleSort(key) {
     setSortConfig((prev) => ({
       key,
-      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
-    }));
+      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc',
+    }))
   }
 
-  const sortedAlerts = [...alerts].sort((a, b) => {
-    const { key, direction } = sortConfig;
-    const factor = direction === "asc" ? 1 : -1;
-    if (a[key] < b[key]) return -1 * factor;
-    if (a[key] > b[key]) return 1 * factor;
-    return 0;
-  });
+  const sortedAlerts = useMemo(() => {
+    return [...filteredAlerts].sort((a, b) => {
+      const { key, direction } = sortConfig
+      const factor = direction === 'asc' ? 1 : -1
 
-//   Extracted it here 
+      if (a[key] < b[key]) return -1 * factor
+      if (a[key] > b[key]) return 1 * factor
+      return 0
+    })
+  }, [filteredAlerts, sortConfig])
+
   function SortableHead({ label, sortKey, sortConfig, onSort }) {
-    const isActive = sortConfig.key === sortKey;
+    const isActive = sortConfig.key === sortKey
     return (
       <TableHead onClick={() => onSort(sortKey)} className="cursor-pointer">
-        {label} {isActive && (sortConfig.direction === "asc" ? "↑" : "↓")}
+        {label} {isActive && (sortConfig.direction === 'asc' ? '↑' : '↓')}
       </TableHead>
-    );
+    )
   }
 
   return (
@@ -60,23 +86,59 @@ export function AlertsTable({ alerts, onRowClick }) {
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">ID</TableHead>
-          <SortableHead label="Severity" sortKey="severity" sortConfig={sortConfig} onSort={handleSort} />
-          <SortableHead label="Threat type" sortKey="threat_type" sortConfig={sortConfig} onSort={handleSort} />
-          <SortableHead label="Status" sortKey="status" sortConfig={sortConfig} onSort={handleSort} />
-          <SortableHead label="Date" sortKey="timestamp" sortConfig={sortConfig} onSort={handleSort} />
-          <SortableHead label="IP" sortKey="ip" sortConfig={sortConfig} onSort={handleSort} />
+          <SortableHead
+            label="Severity"
+            sortKey="severity"
+            sortConfig={sortConfig}
+            onSort={handleSort}
+          />
+          <SortableHead
+            label="Threat type"
+            sortKey="threat_type"
+            sortConfig={sortConfig}
+            onSort={handleSort}
+          />
+          <SortableHead
+            label="Status"
+            sortKey="status"
+            sortConfig={sortConfig}
+            onSort={handleSort}
+          />
+          <SortableHead
+            label="Date"
+            sortKey="timestamp"
+            sortConfig={sortConfig}
+            onSort={handleSort}
+          />
+          <SortableHead
+            label="IP"
+            sortKey="ip"
+            sortConfig={sortConfig}
+            onSort={handleSort}
+          />
         </TableRow>
       </TableHeader>
+
       <TableBody>
         {sortedAlerts.map((alert) => (
-          <TableRow key={alert.id} onClick={() => onRowClick(alert)} className="cursor-pointer">
-            <TableCell className="font-medium">{alert.id.slice(0, 8)}</TableCell>
+          <TableRow
+            key={alert.id}
+            onClick={() => onRowClick(alert)}
+            className="cursor-pointer"
+          >
+            <TableCell className="font-medium">
+              {alert.id.slice(0, 8)}
+            </TableCell>
             <TableCell>
-              <Badge className={severityStyles[alert.severity]}>{alert.severity}</Badge>
+              <Badge className={severityStyles[alert.severity]}>
+                {alert.severity}
+              </Badge>
             </TableCell>
             <TableCell>{alert.threat_type}</TableCell>
             <TableCell>
-              <Badge className={statusStyles[alert.status]}>{alert.status}</Badge>
+              <Badge className={statusStyles[alert.status]}>
+                {alert.status}
+              </Badge>
             </TableCell>
             <TableCell>{formatDate(alert.timestamp)}</TableCell>
             <TableCell className="font-mono">{alert.ip}</TableCell>
@@ -90,5 +152,5 @@ export function AlertsTable({ alerts, onRowClick }) {
         </TableRow>
       </TableFooter>
     </Table>
-  );
+  )
 }
