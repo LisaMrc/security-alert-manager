@@ -24,7 +24,7 @@ function formatDate(isoString) {
   });
 }
 
-export function AlertsTable({ alerts, onUpdateStatus }) {
+export function AlertsTable({ alerts, onRowClick }) {
   return (
     <Table>
       <TableHeader>
@@ -39,7 +39,7 @@ export function AlertsTable({ alerts, onUpdateStatus }) {
       </TableHeader>
       <TableBody>
         {alerts.map((alert) => (
-          <TableRow key={alert.id}>
+          <TableRow key={alert.id} onClick={() => onRowClick(alert)} className="cursor-pointer">
             <TableCell className="font-medium">{alert.id.slice(0, 8)}</TableCell>
             <TableCell>
               <Badge className={severityStyles[alert.severity]}>{alert.severity}</Badge>

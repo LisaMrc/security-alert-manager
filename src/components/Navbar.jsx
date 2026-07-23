@@ -1,7 +1,7 @@
 import samLogo from '../assets/sam_logo.svg'
 import './Navbar.css'
 
-export default function Navbar() {
+export function Navbar() {
   return (
     <header className="navbar">
       <img src={samLogo} alt="SAM" className="navbar-logo" />
