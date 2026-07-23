@@ -1,5 +1,6 @@
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { useState, slice } from "react";
 
 const severityStyles = {
   low: "bg-slate-100 text-slate-700",
@@ -25,12 +26,32 @@ function formatDate(isoString) {
 }
 
 export function AlertsTable({ alerts, onRowClick }) {
+  // Sorting - didn't use TanStackTable to prevent over-engineering
+  const [sortConfig, setSortConfig] = useState({ key: "timestamp", direction: "desc" });
+
+  function handleSort(key) {
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
+    }));
+  }
+
+  const sortedAlerts = [...alerts].sort((a, b) => {
+    const { key, direction } = sortConfig;
+    const factor = direction === "asc" ? 1 : -1;
+    if (a[key] < b[key]) return -1 * factor;
+    if (a[key] > b[key]) return 1 * factor;
+    return 0;
+  });
+
   return (
     <Table>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">ID</TableHead>
-          <TableHead>Severity</TableHead>
+          <TableHead onClick={() => handleSort("severity")} className="cursor-pointer">
+            Severity {sortConfig.key === "severity" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+          </TableHead>
           <TableHead>Threat type</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Date</TableHead>
@@ -38,7 +59,7 @@ export function AlertsTable({ alerts, onRowClick }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {alerts.map((alert) => (
+        {sortedAlerts.map((alert) => (
           <TableRow key={alert.id} onClick={() => onRowClick(alert)} className="cursor-pointer">
             <TableCell className="font-medium">{alert.id.slice(0, 8)}</TableCell>
             <TableCell>
