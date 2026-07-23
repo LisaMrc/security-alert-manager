@@ -45,31 +45,26 @@ export function AlertsTable({ alerts, onRowClick }) {
     return 0;
   });
 
+//   Extracted it here 
+  function SortableHead({ label, sortKey, sortConfig, onSort }) {
+    const isActive = sortConfig.key === sortKey;
+    return (
+      <TableHead onClick={() => onSort(sortKey)} className="cursor-pointer">
+        {label} {isActive && (sortConfig.direction === "asc" ? "↑" : "↓")}
+      </TableHead>
+    );
+  }
+
   return (
     <Table>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">ID</TableHead>
-
-          <TableHead onClick={() => handleSort("severity")} className="cursor-pointer">
-            Severity {sortConfig.key === "severity" && (sortConfig.direction === "asc" ? "↑" : "↓")}
-          </TableHead>
-
-          <TableHead onClick={() => handleSort("threat_type")} className="cursor-pointer">
-            Threat type {sortConfig.key === "threat_type" && (sortConfig.direction === "asc" ? "↑" : "↓")}
-          </TableHead>
-
-          <TableHead onClick={() => handleSort("status")} className="cursor-pointer">
-            Status {sortConfig.key === "status" && (sortConfig.direction === "asc" ? "↑" : "↓")}
-          </TableHead>
-
-          <TableHead onClick={() => handleSort("timestamp")} className="cursor-pointer">
-            Date {sortConfig.key === "timestamp" && (sortConfig.direction === "asc" ? "↑" : "↓")}
-          </TableHead>
-
-          <TableHead onClick={() => handleSort("ip")} className="cursor-pointer">
-            IP {sortConfig.key === "ip" && (sortConfig.direction === "asc" ? "↑" : "↓")}
-          </TableHead>
+          <SortableHead label="Severity" sortKey="severity" sortConfig={sortConfig} onSort={handleSort} />
+          <SortableHead label="Threat type" sortKey="threat_type" sortConfig={sortConfig} onSort={handleSort} />
+          <SortableHead label="Status" sortKey="status" sortConfig={sortConfig} onSort={handleSort} />
+          <SortableHead label="Date" sortKey="timestamp" sortConfig={sortConfig} onSort={handleSort} />
+          <SortableHead label="IP" sortKey="ip" sortConfig={sortConfig} onSort={handleSort} />
         </TableRow>
       </TableHeader>
       <TableBody>
