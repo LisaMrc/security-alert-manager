@@ -34,19 +34,17 @@ function formatDate(isoString) {
   })
 }
 
-export function AlertsTable({ alerts, onRowClick, selectedSeverity }) {
+export function AlertsTable({ alerts, onRowClick, filters }) {
   //   Filtering
   const filteredAlerts = useMemo(() => {
-    console.log('selectedSeverity:', selectedSeverity)
-    console.log(
-      'available severities:',
-      alerts.map((a) => a.severity),
-    )
+    return alerts.filter((alert) => {
+      return Object.entries(filters).every(([key, value]) => {
+        if (value === null) return true
 
-    return selectedSeverity === null
-      ? alerts
-      : alerts.filter((alert) => alert.severity === selectedSeverity)
-  }, [alerts, selectedSeverity])
+        return alert[key] === value
+      })
+    })
+  }, [alerts, filters])
 
   // Sorting - didn't use TanStackTable to prevent over-engineering
   const [sortConfig, setSortConfig] = useState({

@@ -1,9 +1,9 @@
 import { useReducer, useEffect, useRef } from "react"
 
-const IPS = ["8.8.8.8", "1.1.1.1", "185.220.101.5", "45.148.10.92", "104.244.72.115"]
-const THREAT_TYPES = ["Brute-Force SSH", "Port Scan", "SQL Injection", "DDoS", "Credential Stuffing"]
 const MAX_ALERTS = 100 // prevents list from growing too much
 
+export const IPS = ["8.8.8.8", "1.1.1.1", "185.220.101.5", "45.148.10.92", "104.244.72.115"]
+export const THREAT_TYPES = ["Brute-Force SSH", "Port Scan", "SQL Injection", "DDoS", "Credential Stuffing"]
 export const SEVERITIES = ["low", "medium", "high", "critical"]
 
 // Mocked data

@@ -4,27 +4,33 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { buttonVariants } from '@/components/ui/button'
-import { SEVERITIES } from '@/hooks/useAlertStream'
 
-export function AlertsFilters({ selectedSeverity, onSeverityChange }) {
+export function AlertsFilters({
+  label,
+  allLabel,
+  filterKey,
+  value,
+  options,
+  onChange,
+}) {
   return (
     <Popover>
       <PopoverTrigger className={buttonVariants({ variant: 'outline' })}>
-        {' '}
-        {selectedSeverity ?? 'All severities'}{' '}
+        {value ?? allLabel}
       </PopoverTrigger>
 
       <PopoverContent>
-        <button type="button" onClick={() => onSeverityChange(null)}>
-          All severities
+        <button type="button" onClick={() => onChange(filterKey, null)}>
+          {allLabel}
         </button>
-        {SEVERITIES.map((severity) => (
+
+        {options.map((option) => (
           <button
-            key={severity}
+            key={option}
             type="button"
-            onClick={() => onSeverityChange(severity)}
+            onClick={() => onChange(filterKey, option)}
           >
-            {severity}
+            {option}
           </button>
         ))}
       </PopoverContent>
