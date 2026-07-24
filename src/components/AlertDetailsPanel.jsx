@@ -1,19 +1,25 @@
-import { useState, useEffect } from "react"
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerClose,
-} from "@/components/ui/drawer"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { fetchIpInfo } from "@/lib/ipinfo"
-import { severityStyles, statusStyles } from "@/lib/alertStyles"
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+} from '@/components/ui/drawer'
+import { severityStyles, statusStyles } from '@/lib/alertStyles'
+import { fetchIpInfo } from '@/lib/ipinfo'
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
-export function AlertDetailsPanel({ alert, open, onOpenChange, onUpdateStatus }) {
+export function AlertDetailsPanel({
+  alert,
+  open,
+  onOpenChange,
+  onUpdateStatus,
+}) {
   const [ipInfo, setIpInfo] = useState(null)
   const [loadingInfo, setLoadingInfo] = useState(false)
   const [infoError, setInfoError] = useState(null)
@@ -37,7 +43,8 @@ export function AlertDetailsPanel({ alert, open, onOpenChange, onUpdateStatus })
       onUpdateStatus(alert.id, status)
       setActionLoading(null)
       onOpenChange(false)
-    }, 600) // simule un appel réseau ; remplace par un vrai await si tu branches un backend
+      toast.success(`IP ${alert.ip} has been ${status}`)
+    }, 600)
   }
 
   if (!alert) return null
@@ -58,7 +65,9 @@ export function AlertDetailsPanel({ alert, open, onOpenChange, onUpdateStatus })
 
           <div>
             <p className="text-sm text-muted-foreground">Severity</p>
-            <Badge className={severityStyles[alert.severity]}>{alert.severity}</Badge>
+            <Badge className={severityStyles[alert.severity]}>
+              {alert.severity}
+            </Badge>
           </div>
 
           <div>
@@ -81,9 +90,18 @@ export function AlertDetailsPanel({ alert, open, onOpenChange, onUpdateStatus })
 
             {ipInfo && !loadingInfo && (
               <div className="space-y-1 text-sm">
-                <p><span className="text-muted-foreground">City:</span> {ipInfo.city || "Unknown"}</p>
-                <p><span className="text-muted-foreground">Country:</span> {ipInfo.country || "Unknown"}</p>
-                <p><span className="text-muted-foreground">ISP/Org:</span> {ipInfo.org || "Unknown"}</p>
+                <p>
+                  <span className="text-muted-foreground">City:</span>{' '}
+                  {ipInfo.city || 'Unknown'}
+                </p>
+                <p>
+                  <span className="text-muted-foreground">Country:</span>{' '}
+                  {ipInfo.country || 'Unknown'}
+                </p>
+                <p>
+                  <span className="text-muted-foreground">ISP/Org:</span>{' '}
+                  {ipInfo.org || 'Unknown'}
+                </p>
               </div>
             )}
           </div>
@@ -93,16 +111,16 @@ export function AlertDetailsPanel({ alert, open, onOpenChange, onUpdateStatus })
           <Button
             variant="destructive"
             disabled={!!actionLoading}
-            onClick={() => handleAction("banned", "ban")}
+            onClick={() => handleAction('banned', 'ban')}
           >
-            {actionLoading === "ban" ? "Banning..." : "Ban IP"}
+            {actionLoading === 'ban' ? 'Banning...' : 'Ban IP'}
           </Button>
           <Button
             variant="outline"
             disabled={!!actionLoading}
-            onClick={() => handleAction("ignored", "ignore")}
+            onClick={() => handleAction('ignored', 'ignore')}
           >
-            {actionLoading === "ignore" ? "Ignoring..." : "Ignore alert"}
+            {actionLoading === 'ignore' ? 'Ignoring...' : 'Ignore alert'}
           </Button>
           <DrawerClose render={<Button variant="ghost" />}>Close</DrawerClose>
         </DrawerFooter>

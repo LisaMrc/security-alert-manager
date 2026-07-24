@@ -1,13 +1,14 @@
-import './App.css'
-import React, { useState } from 'react'
-import { useAlertStream } from './hooks/useAlertStream'
-import { AlertsTable } from './components/AlertsTable'
-import { AlertDetailsPanel } from './components/AlertDetailsPanel'
-import { Navbar } from './components/Navbar'
-import { AlertsFilters } from './components/AlertsFilters'
-import { AlertsCounter } from './components/AlertsCounter'
-import { SEVERITIES, THREAT_TYPES, IPS } from '@/hooks/useAlertStream'
+import { Toaster } from '@/components/ui/sonner'
+import { IPS, SEVERITIES, THREAT_TYPES } from '@/hooks/useAlertStream'
 import { STATUSES } from '@/lib/alertStyles'
+import { useState } from 'react'
+import './App.css'
+import { AlertDetailsPanel } from './components/AlertDetailsPanel'
+import { AlertsCounter } from './components/AlertsCounter'
+import { AlertsFilters } from './components/AlertsFilters'
+import { AlertsTable } from './components/AlertsTable'
+import { Navbar } from './components/Navbar'
+import { useAlertStream } from './hooks/useAlertStream'
 
 export default function App() {
   const { alerts, updateAlertStatus } = useAlertStream()
@@ -39,7 +40,6 @@ export default function App() {
   return (
     <div>
       <Navbar />
-
       <div className="px-8 py-6 flex flex-col gap-6 pb-16">
         <div className="flex gap-3">
           <AlertsFilters
@@ -85,15 +85,21 @@ export default function App() {
           filters={filters}
         />
       </div>
-
       {/* Elements out of the page flow */}
       <AlertsCounter count={alerts.length} />
-
       <AlertDetailsPanel
         alert={selectedAlert}
         open={panelOpen}
         onOpenChange={setPanelOpen}
         onUpdateStatus={updateAlertStatus}
+      />
+
+      <Toaster
+        toastOptions={{
+          classNames: {
+            success: '!bg-white !text-green-600 !border-green-200',
+          },
+        }}
       />
     </div>
   )
