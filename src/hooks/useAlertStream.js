@@ -1,6 +1,7 @@
 import { useReducer, useEffect, useRef } from 'react'
 import { toast } from 'sonner'
 
+// Mocked data
 const MAX_ALERTS = 100 // prevents list from growing too much
 const FAILURE_RATE = 0.15 // 15% of failing risk (mocked - done so you can see how errors are handled)
 
@@ -11,6 +12,7 @@ export const IPS = [
   '45.148.10.92',
   '104.244.72.115',
 ]
+
 export const THREAT_TYPES = [
   'Brute-Force SSH',
   'Port Scan',
@@ -18,9 +20,9 @@ export const THREAT_TYPES = [
   'DDoS',
   'Credential Stuffing',
 ]
+
 export const SEVERITIES = ['low', 'medium', 'high', 'critical']
 
-// Mocked data
 function randomFrom(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
 }
@@ -77,7 +79,6 @@ export function useAlertStream(intervalMs = 15000) {
 // - the tool to modify it → dispatch
   
   const intervalRef = useRef(null)
-  const hasStartedRef = useRef(false)
 
   useEffect(() => {
     // tick need dispatch that is in this hook instance

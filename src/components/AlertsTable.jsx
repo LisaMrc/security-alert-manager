@@ -23,7 +23,7 @@ function formatDate(isoString) {
 }
 
 export function AlertsTable({ alerts, onRowClick, filters }) {
-  //   Filtering
+  //   Filtering, with useMemo so it re-renders only if filters or alerts change
   const filteredAlerts = useMemo(() => {
     return alerts.filter((alert) => {
       return Object.entries(filters).every(([key, value]) => {
@@ -35,6 +35,7 @@ export function AlertsTable({ alerts, onRowClick, filters }) {
   }, [alerts, filters])
 
   // Sorting - didn't use TanStackTable to prevent over-engineering
+    //   By default, sorted by date, old -> recent
   const [sortConfig, setSortConfig] = useState({
     key: 'timestamp',
     direction: 'asc',

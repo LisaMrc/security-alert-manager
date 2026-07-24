@@ -85,6 +85,7 @@ export default function App() {
           filters={filters}
         />
       </div>
+    
       {/* Elements out of the page flow */}
       <AlertsCounter count={alerts.length} />
       <AlertDetailsPanel
