@@ -40,7 +40,7 @@ export default function App() {
     <div>
       <Navbar />
 
-      <div className="px-8 py-6 flex flex-col gap-6">
+      <div className="px-8 py-6 flex flex-col gap-6 pb-16">
         <div className="flex gap-3">
           <AlertsFilters
             label="Severity"
@@ -79,14 +79,15 @@ export default function App() {
           />
         </div>
 
-        <AlertsCounter count={alerts.length} />
-
         <AlertsTable
           alerts={alerts}
           onRowClick={handleRowClick}
           filters={filters}
         />
       </div>
+
+      {/* Elements out of the page flow */}
+      <AlertsCounter count={alerts.length} />
 
       <AlertDetailsPanel
         alert={selectedAlert}
