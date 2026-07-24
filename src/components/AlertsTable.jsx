@@ -83,75 +83,77 @@ export function AlertsTable({ alerts, onRowClick, filters }) {
   }
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">ID</TableHead>
-          <SortableHead
-            label="Severity"
-            sortKey="severity"
-            sortConfig={sortConfig}
-            onSort={handleSort}
-          />
-          <SortableHead
-            label="Threat type"
-            sortKey="threat_type"
-            sortConfig={sortConfig}
-            onSort={handleSort}
-          />
-          <SortableHead
-            label="Status"
-            sortKey="status"
-            sortConfig={sortConfig}
-            onSort={handleSort}
-          />
-          <SortableHead
-            label="Date"
-            sortKey="timestamp"
-            sortConfig={sortConfig}
-            onSort={handleSort}
-          />
-          <SortableHead
-            label="IP"
-            sortKey="ip"
-            sortConfig={sortConfig}
-            onSort={handleSort}
-          />
-        </TableRow>
-      </TableHeader>
-
-      <TableBody>
-        {sortedAlerts.map((alert) => (
-          <TableRow
-            key={alert.id}
-            onClick={() => onRowClick(alert)}
-            className="cursor-pointer"
-          >
-            <TableCell className="font-medium">
-              {alert.id.slice(0, 8)}
-            </TableCell>
-            <TableCell>
-              <Badge className={severityStyles[alert.severity]}>
-                {alert.severity}
-              </Badge>
-            </TableCell>
-            <TableCell>{alert.threat_type}</TableCell>
-            <TableCell>
-              <Badge className={statusStyles[alert.status]}>
-                {alert.status}
-              </Badge>
-            </TableCell>
-            <TableCell>{formatDate(alert.timestamp)}</TableCell>
-            <TableCell className="font-mono">{alert.ip}</TableCell>
+    <div className="rounded-md border overflow-hidden">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]">ID</TableHead>
+            <SortableHead
+              label="Severity"
+              sortKey="severity"
+              sortConfig={sortConfig}
+              onSort={handleSort}
+            />
+            <SortableHead
+              label="Threat type"
+              sortKey="threat_type"
+              sortConfig={sortConfig}
+              onSort={handleSort}
+            />
+            <SortableHead
+              label="Status"
+              sortKey="status"
+              sortConfig={sortConfig}
+              onSort={handleSort}
+            />
+            <SortableHead
+              label="Date"
+              sortKey="timestamp"
+              sortConfig={sortConfig}
+              onSort={handleSort}
+            />
+            <SortableHead
+              label="IP"
+              sortKey="ip"
+              sortConfig={sortConfig}
+              onSort={handleSort}
+            />
           </TableRow>
-        ))}
-      </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={5}>Total</TableCell>
-          <TableCell className="text-right">{alerts.length} alerts</TableCell>
-        </TableRow>
-      </TableFooter>
-    </Table>
+        </TableHeader>
+
+        <TableBody>
+          {sortedAlerts.map((alert) => (
+            <TableRow
+              key={alert.id}
+              onClick={() => onRowClick(alert)}
+              className="cursor-pointer"
+            >
+              <TableCell className="font-medium">
+                {alert.id.slice(0, 8)}
+              </TableCell>
+              <TableCell>
+                <Badge className={severityStyles[alert.severity]}>
+                  {alert.severity}
+                </Badge>
+              </TableCell>
+              <TableCell>{alert.threat_type}</TableCell>
+              <TableCell>
+                <Badge className={statusStyles[alert.status]}>
+                  {alert.status}
+                </Badge>
+              </TableCell>
+              <TableCell>{formatDate(alert.timestamp)}</TableCell>
+              <TableCell className="font-mono">{alert.ip}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={5}>Total</TableCell>
+            <TableCell className="text-right">{alerts.length} alerts</TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </div>
   )
 }
