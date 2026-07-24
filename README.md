@@ -63,3 +63,7 @@ npm run dev
 - les alertes s'ajoutent en bas plutôt qu'en haut pour éviter de perturber la lecture
 - Utilisation d'un toast (sonner) pour un retour visuel de l'action (ban ui)
 - Cache TTL sur IPinfo (éviter les appels redondants, comme demandé)
+
+## 🔗 Liens
+**Maquettes Figma :** conçues comme un outil de travail et de cadrage, ces maquettes mettent volontairement l'accent sur la logique fonctionnelle plutôt que sur le rendu visuel final ou les principes d'utilisation Figma
+https://www.figma.com/design/MxGIxOS3bUubDgsAhJ4bL1/SAM---Frameworks?node-id=0-1&t=u1FolqVrtGHQAhCh-1
