@@ -111,7 +111,7 @@ export function AlertsTable({ alerts, onRowClick, filters }) {
             <TableRow
               key={alert.id}
               onClick={() => onRowClick(alert)}
-              className="cursor-pointer"
+              className="cursor-pointer animate-in fade-in duration-500"
             >
               <TableCell className="font-medium">
                 {alert.id.slice(0, 8)}
