@@ -5,6 +5,7 @@ import { AlertsTable } from './components/AlertsTable'
 import { AlertDetailsPanel } from './components/AlertDetailsPanel'
 import { Navbar } from './components/Navbar'
 import { AlertsFilters } from './components/AlertsFilters'
+import { AlertsCounter } from './components/AlertsCounter'
 
 import { SEVERITIES, THREAT_TYPES, IPS } from '@/hooks/useAlertStream'
 import { STATUSES } from '@/components/AlertsTable'
@@ -78,6 +79,8 @@ export default function App() {
             onChange={handleFilterChange}
           />
         </div>
+
+        <AlertsCounter count={alerts.length} />
 
         <AlertsTable
           alerts={alerts}

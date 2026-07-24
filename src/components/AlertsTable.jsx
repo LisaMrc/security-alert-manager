@@ -147,12 +147,6 @@ export function AlertsTable({ alerts, onRowClick, filters }) {
             </TableRow>
           ))}
         </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={5}>Total</TableCell>
-            <TableCell className="text-right">{alerts.length} alerts</TableCell>
-          </TableRow>
-        </TableFooter>
       </Table>
     </div>
   )
