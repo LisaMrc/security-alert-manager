@@ -2,7 +2,7 @@
 // it contains a `fetchIpInfo(ip)` function
 // that calls the external IPinfo API
 // to retrieve the geolocation and ISP for a given IP address,
-// using an in-memory cache to avoid repeating t
+// using an in-memory cache to avoid repeating it
 // the network call every time the same alert is clicked
 
 const cache = new Map();
