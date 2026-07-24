@@ -3,7 +3,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 export function AlertsFilters({
   label,
@@ -15,23 +16,30 @@ export function AlertsFilters({
 }) {
   return (
     <Popover>
-      <PopoverTrigger className={buttonVariants({ variant: 'outline' })}>
+      <PopoverTrigger render={<Button variant="outline" />}>
         {value ?? allLabel}
       </PopoverTrigger>
 
-      <PopoverContent>
-        <button type="button" onClick={() => onChange(filterKey, null)}>
+      <PopoverContent className="w-48 p-1 flex flex-col gap-1">
+        <Button
+          variant="ghost"
+          size="sm"
+          className={cn('justify-start', value === null && 'bg-accent')}
+          onClick={() => onChange(filterKey, null)}
+        >
           {allLabel}
-        </button>
+        </Button>
 
         {options.map((option) => (
-          <button
+          <Button
             key={option}
-            type="button"
+            variant="ghost"
+            size="sm"
+            className={cn('justify-start', value === option && 'bg-accent')}
             onClick={() => onChange(filterKey, option)}
           >
             {option}
-          </button>
+          </Button>
         ))}
       </PopoverContent>
     </Popover>

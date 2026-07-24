@@ -52,7 +52,7 @@ export function AlertsTable({ alerts, onRowClick, filters }) {
   // Sorting - didn't use TanStackTable to prevent over-engineering
   const [sortConfig, setSortConfig] = useState({
     key: 'timestamp',
-    direction: 'desc',
+    direction: 'asc',
   })
 
   function handleSort(key) {
