@@ -85,9 +85,10 @@ export default function App() {
           filters={filters}
         />
       </div>
-    
+
       {/* Elements out of the page flow */}
       <AlertsCounter count={alerts.length} />
+
       <AlertDetailsPanel
         alert={selectedAlert}
         open={panelOpen}
@@ -99,6 +100,8 @@ export default function App() {
         toastOptions={{
           classNames: {
             success: '!bg-white !text-green-600 !border-green-200',
+            error: '!bg-white !text-red-600 !border-red-200',
+            description: '!text-gray-600',
           },
         }}
       />
