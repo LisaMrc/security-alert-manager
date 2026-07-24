@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
 import { useState, useMemo } from 'react'
-import { severityStyles, statusStyles, STATUSES } from "@/lib/alertStyles"
+import { severityStyles, statusStyles, STATUSES } from '@/lib/alertStyles'
 
 function formatDate(isoString) {
   return new Date(isoString).toLocaleString('en-US', {
@@ -62,7 +62,10 @@ export function AlertsTable({ alerts, onRowClick, filters }) {
     const isActive = sortConfig.key === sortKey
     return (
       <TableHead onClick={() => onSort(sortKey)} className="cursor-pointer">
-        {label} {isActive && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+        {label}
+        <span className={`inline-block w-4 ${isActive ? '' : 'opacity-0'}`}>
+          {sortConfig.direction === 'asc' ? '↑' : '↓'}
+        </span>
       </TableHead>
     )
   }
