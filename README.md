@@ -30,9 +30,14 @@ npm run dev
 - [x] Panneau de détails au clic (géoloc + ISP)
 - [x] Actions Ban/Ignore avec loading + toast de succès
 - [x] Filtres (sévérité, type, IP, statut) et tri par colonne
-- Afficher les erreurs remontées par l’API sans gêner l’analyste
+- [x] Afficher les erreurs remontées par l’API sans gêner l’analyste
 - [ ] Pause du flux Live (bonus, non fait)
 - [ ] Dark mode (bonus, non fait)
+
+*Pour aller plus loin (non implémenté) :*
+- Une pastille "vous avez x nouvelles alertes" lorsque de nouvelles alertes apparaissent en bas du tableau, hors de l'écran
+- Switch en dark / light mode
+- Checkbox dans les filtres
 
 ##  🚂 Mon Processus
 1. Mise en place du repo et ses dépendances
