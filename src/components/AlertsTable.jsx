@@ -35,7 +35,7 @@ export function AlertsTable({ alerts, onRowClick, filters }) {
   }, [alerts, filters])
 
   // Sorting - didn't use TanStackTable to prevent over-engineering
-    //   By default, sorted by date, old -> recent
+  //   By default, sorted by date, old -> recent
   const [sortConfig, setSortConfig] = useState({
     key: 'timestamp',
     direction: 'asc',
@@ -73,35 +73,42 @@ export function AlertsTable({ alerts, onRowClick, filters }) {
 
   return (
     <div className="rounded-md border overflow-hidden">
-      <Table>
+      <Table className="table-fixed w-full">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">ID</TableHead>
+            <TableHead className="w-[100px]">
+              ID
+            </TableHead>
             <SortableHead
+              className="w-[150px]"
               label="Severity"
               sortKey="severity"
               sortConfig={sortConfig}
               onSort={handleSort}
             />
             <SortableHead
+              className="w-[150px]"
               label="Threat type"
               sortKey="threat_type"
               sortConfig={sortConfig}
               onSort={handleSort}
             />
             <SortableHead
+              className="w-[150px]"
               label="Status"
               sortKey="status"
               sortConfig={sortConfig}
               onSort={handleSort}
             />
             <SortableHead
+              className="w-[150px]"
               label="Date"
               sortKey="timestamp"
               sortConfig={sortConfig}
               onSort={handleSort}
             />
             <SortableHead
+              className="w-[150px]"
               label="IP"
               sortKey="ip"
               sortConfig={sortConfig}
