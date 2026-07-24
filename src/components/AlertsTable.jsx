@@ -9,22 +9,7 @@ import {
 } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
 import { useState, useMemo } from 'react'
-
-const severityStyles = {
-  low: 'bg-slate-100 text-slate-700',
-  medium: 'bg-amber-100 text-amber-700',
-  high: 'bg-orange-100 text-orange-700',
-  critical: 'bg-red-100 text-red-700',
-}
-
-const statusStyles = {
-  active: 'bg-blue-100 text-blue-700',
-  banned: 'bg-red-100 text-red-700',
-  ignored: 'bg-slate-100 text-slate-500',
-}
-
-// Derive status values from this table instead of creating one - one SOT
-export const STATUSES = Object.keys(statusStyles)
+import { severityStyles, statusStyles, STATUSES } from "@/lib/alertStyles"
 
 function formatDate(isoString) {
   return new Date(isoString).toLocaleString('en-US', {

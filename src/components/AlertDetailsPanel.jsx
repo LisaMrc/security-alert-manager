@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { fetchIpInfo } from "@/lib/ipinfo"
+import { severityStyles, statusStyles } from "@/lib/alertStyles"
 
 export function AlertDetailsPanel({ alert, open, onOpenChange, onUpdateStatus }) {
   const [ipInfo, setIpInfo] = useState(null)
@@ -57,12 +58,12 @@ export function AlertDetailsPanel({ alert, open, onOpenChange, onUpdateStatus })
 
           <div>
             <p className="text-sm text-muted-foreground">Severity</p>
-            <Badge>{alert.severity}</Badge>
+            <Badge className={severityStyles[alert.severity]}>{alert.severity}</Badge>
           </div>
 
           <div>
             <p className="text-sm text-muted-foreground">Status</p>
-            <Badge>{alert.status}</Badge>
+            <Badge className={statusStyles[alert.status]}>{alert.status}</Badge>
           </div>
 
           <div className="border-t pt-4">

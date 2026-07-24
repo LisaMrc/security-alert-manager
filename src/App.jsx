@@ -6,9 +6,8 @@ import { AlertDetailsPanel } from './components/AlertDetailsPanel'
 import { Navbar } from './components/Navbar'
 import { AlertsFilters } from './components/AlertsFilters'
 import { AlertsCounter } from './components/AlertsCounter'
-
 import { SEVERITIES, THREAT_TYPES, IPS } from '@/hooks/useAlertStream'
-import { STATUSES } from '@/components/AlertsTable'
+import { STATUSES } from '@/lib/alertStyles'
 
 export default function App() {
   const { alerts, updateAlertStatus } = useAlertStream()
