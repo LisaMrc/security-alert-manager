@@ -59,10 +59,9 @@ npm run dev
 
 ## 💭 Choix techniques
 - Stack 100% frontend pour correspondre au brief qui évalue le front et la durée limitée (1 semaine)
-- tri manuel plutôt que TanStack Table pour éviter l'over-engineering
+- Tri codé manuellement plutôt que TanStack Table (shadcn/UI), pour éviter l'over-engineering
 - les alertes s'ajoutent en bas plutôt qu'en haut pour éviter de perturber la lecture
-- Utilisation d'un toast (sonner) pour un retour visuel de l'action (ban ui)
-- Cache TTL sur IPinfo (éviter les appels redondants, comme demandé)
+- Utilisation d'un toast (sonner) pour un retour visuel de l'action (ban ip / ignore alert)
 
 ## 🔗 Liens
 **Maquettes Figma :** conçues comme un outil de travail et de cadrage, ces maquettes mettent volontairement l'accent sur la logique fonctionnelle plutôt que sur le rendu visuel final ou les principes d'utilisation Figma
