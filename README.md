@@ -2,12 +2,12 @@
 Interface logicielle qui permet de qualifier une menace et de prendre des décisions rapidement.
 
 ## ⬇️ Installation & lancement
-\`\`\`bash
+```bash
 git clone https://github.com/LisaMrc/security-alert-manager
 cd security-alert-manager
 npm install
 npm run dev
-\`\`\`
+```
 
 ## 🛠️ Outils
 ### Code :
